@@ -1,0 +1,31 @@
+<div class="container d-flex flex-column align-items-center justify-content-around" style="height: 100vh">
+  <h1>Delivery List.</h1>
+  <input type="text" placeholder="Search..." class="form-control form-control-lg" data-reflex="keyup->ExampleReflex#search"
+      >
+  <div id="search-results" style="width: 100%">
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width: 35%" scope="col">
+            <%= link_to "Customer", "", data: {reflex: "click->ExampleReflex#order", column_name: "customer"} %>
+           </th>
+          <th style="width: 35%" scope="col"><%= link_to "Product", "", data: {reflex: "click->ExampleReflex#order", column_name: "product"} %></th>
+          <th style="width: 15%" scope="col">Status</th>
+          <th style="width: 15%" scope="col">Update</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |order| %>
+          <tr style="<%= order.delivered? ? 'background-color: #63B4D1' : 'background-color: #AE76A6'  ; %>">
+            <td><%= order.customer %></td>
+            <td><%= order.product %></td>
+            <td><%= order.delivered? ? "Delivered" : "Not Delivered" %></td>
+            <td>
+              <div class="btn btn-success" data-reflex="click->ExampleReflex#change_status" data-id="<%= order.id %>"> CHANGE </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
